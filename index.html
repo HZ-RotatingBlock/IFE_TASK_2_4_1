@@ -31,6 +31,7 @@
 			//获取显示列表
 			var ul_list = document.getElementsByClassName("content_ul")[0];
 			var li_list = document.getElementsByClassName("content_list");
+			var content_list_length = li_list.length;//获取显示列表的长度
 			//获取输入框内容
 			var input_value = document.getElementById("input_add");
 			//获取操作按钮
@@ -38,9 +39,35 @@
 			var rightIn = document.getElementsByClassName("control_list")[1];
 			var leftOut = document.getElementsByClassName("control_list")[2];
 			var rightOut = document.getElementsByClassName("control_list")[3];
-			alert(ul_list.removeChild(ul_list.lastChild));//移除ul列表中的最后一个子元素
+			
+			
 			//左侧入
-
+			leftIn.onclick = function(){
+				addClass(this,'button_clickchange');		
+				var input_content = Number(input_value.value);
+				if(input_content != ""&&typeof(input_content) == 'number'&&!isNaN(input_content)){
+					var new_item = document.createElement("li");
+					new_item.className = "content_list";
+					new_item.innerHTML = input_content;
+					ul_list.insertBefore(new_item,ul_list.childNodes[0]);
+					input_value.value = "";
+					//重新为li中的元素绑定点击删除事件
+					for(var i in li_list){
+						(function(){
+								document.getElementsByClassName("content_list")[i].onclick = function(){
+								that = this;
+								alert("删除事件已经触发！");
+								that.parentNode.removeChild(that);
+							};
+						})(li_list[i]);				
+					};
+				}else if(isNaN(input_content)){
+					alert("不输入数字我就爆炸了！");
+					input_value.value = "";
+				}else if(input_content == ""){
+					alert("输入点数字吧！");
+				}				
+			}
 			//右侧入
 			rightIn.onclick = function(){
 				addClass(this,'button_clickchange');		
@@ -48,6 +75,16 @@
 				if(input_content != ""&&typeof(input_content) == 'number'&&!isNaN(input_content)){
 					ul_list.innerHTML += "<li class='content_list'>" + input_content + "</li>";
 					input_value.value = "";
+					//重新为li中的元素绑定点击删除事件
+					for(var i in li_list){
+						(function(){
+								document.getElementsByClassName("content_list")[i].onclick = function(){
+								that = this;
+								alert("删除事件已经触发！");
+								that.parentNode.removeChild(that);
+							};
+						})(li_list[i]);				
+					};
 				}else if(isNaN(input_content)){
 					alert("不输入数字我就爆炸了！");
 					input_value.value = "";
@@ -80,6 +117,17 @@
 			rightIn.onmouseout = function(){
 				removeClass(this,'button_clickchange');
 			}
+			//点击元素删除			
+			var that = null;
+			for(var i in li_list){
+				(function(){
+						document.getElementsByClassName("content_list")[i].onclick = function(){
+						that = this;
+						alert("删除事件已经触发！");
+						that.parentNode.removeChild(that);
+					};
+				})(li_list[i]);				
+			};
 		}		
 		//js模拟jq的addClass效果
 		function addClass(element,csName){
