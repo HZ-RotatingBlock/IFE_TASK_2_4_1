@@ -13,25 +13,86 @@
 				<li class="content_list">3</li>
 				<li class="content_list">4</li>
 				<li class="content_list">5</li>
-				<li class="content_list">6</li>
-				<li class="content_list">7</li>
-				<li class="content_list">8</li>
-				<li class="content_list">9</li>
-				<li class="content_list">10</li>
 			</ul>
 		</div>
 		<div class="input">
 			<lable for="input_add">请开始你的表演</lable>
-			<input type="text" name="input_add" id="input_add">
+			<input type="text" name="input_add" id="input_add" placeholder="输入要添加进入队列的数字">
 		</div>
-		<ul class="control">
-			<li class="control_list">左侧出</li>
+		<ul class="control">			
 			<li class="control_list">左侧入</li>
 			<li class="control_list">右侧入</li>
+			<li class="control_list">左侧出</li>
 			<li class="control_list">右侧出</li>
 		</ul>
 	</body>
 	<script type="text/javascript">
-		
+		window.onload = function(){
+			//获取显示列表
+			var ul_list = document.getElementsByClassName("content_ul")[0];
+			var li_list = document.getElementsByClassName("content_list");
+			//获取输入框内容
+			var input_value = document.getElementById("input_add");
+			//获取操作按钮
+			var leftIn = document.getElementsByClassName("control_list")[0];
+			var rightIn = document.getElementsByClassName("control_list")[1];
+			var leftOut = document.getElementsByClassName("control_list")[2];
+			var rightOut = document.getElementsByClassName("control_list")[3];
+			alert(ul_list.removeChild(ul_list.lastChild));//移除ul列表中的最后一个子元素
+			//左侧入
+
+			//右侧入
+			rightIn.onclick = function(){
+				addClass(this,'button_clickchange');		
+				var input_content = Number(input_value.value);
+				if(input_content != ""&&typeof(input_content) == 'number'&&!isNaN(input_content)){
+					ul_list.innerHTML += "<li class='content_list'>" + input_content + "</li>";
+					input_value.value = "";
+				}else if(isNaN(input_content)){
+					alert("不输入数字我就爆炸了！");
+					input_value.value = "";
+				}else if(input_content == ""){
+					alert("输入点数字吧！");
+				}				
+			}
+			
+			
+			//左侧出
+			leftOut.onclick = function(){
+				addClass(this,'button_clickchange');	
+				alert(ul_list.children[0].innerText);
+				ul_list.removeChild(ul_list.children[0]);			
+			}
+			//右侧出
+			rightOut.onclick = function(){
+				addClass(this,'button_clickchange');	
+				alert(ul_list.children[li_list.length-1].innerText);
+				ul_list.removeChild(ul_list.children[li_list.length-1]);			
+			}
+			//指令点击效果
+			leftOut.onmouseout = function(){
+				removeClass(this,'button_clickchange');
+			}
+			leftIn.onmouseout = function(){
+				removeClass(this,'button_clickchange');
+			}
+			rightOut.onmouseout = function(){
+				removeClass(this,'button_clickchange');
+			}			
+			rightIn.onmouseout = function(){
+				removeClass(this,'button_clickchange');
+			}
+		}		
+		//js模拟jq的addClass效果
+		function addClass(element,csName){
+			element.className+=' '+csName;
+		}
+		//js模拟jq的removeClass效果
+		function removeClass(element, csName) {
+			var reg = new RegExp('(\\s|^)' + csName + '(\\s|$)');
+			element.className = element.className.replace(reg, ' ');
+		}
+ 
+
 	</script>
 </html>
