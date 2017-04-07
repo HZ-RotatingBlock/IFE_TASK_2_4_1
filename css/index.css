@@ -18,6 +18,7 @@ a{
 .content{
 	position:relative;
 	margin:0 auto;
+	margin-top:50px;
 	width:100%;
 	height:auto;
 }
@@ -26,12 +27,12 @@ ul.content_ul{
 	left:50%;
 	transform:translateX(-50%);
 	-webkit-transform:translateX(-50%);
-	width:80%;
+	width:95%;
 	height:auto;
 }
 li.content_list{
 	float:left;
-	width:calc(10% - 2px);
+	width:98px;
 	height:100px;
 	font-size:25px;
 	font-weight:700;
@@ -49,7 +50,7 @@ li.content_list:hover{
 .input{
 	display:block;
 	position:absolute;
-	top:300px;
+	top:350px;
 	left:50%;
 	transform:translateX(-50%);
 	width:50%;
@@ -63,6 +64,7 @@ lable{
 	left:50%;
 	transform:translateX(-50%);
 	font-size:25px;
+	font-weight:700;
 	line-height:50px;
 }
 #input_add{
@@ -77,12 +79,12 @@ lable{
 	line-height:40px;
 	background-color:#fff;
 	border:none;
-	border-radius:5px;
+	border-radius:3px;
 	outline:none;
 }
 ul.control{
 	position:absolute;
-	top:400px;
+	top:450px;
 	left:50%;
 	width:80%;
 	height:50px;
@@ -102,5 +104,19 @@ li.control_list{
 	color:#fff;
 	background-color:#434A54;
 	border-radius:5px;
+	transition:all 0.5s;
 	cursor:pointer;
+}
+li.control_list:hover{
+	box-shadow:5px 5px 10px #434A54;
+}
+.button_clickchange{
+	animation:button_click 0.4s forwards;
+	animation-direction:alternate;
+}
+@keyframes button_click{
+	0% {transform:scale(1);}
+	50% {transform:scale(0.8);}
+	75% {transform:scale(1.1);}
+	100% {transform:scale(1);}
 }
