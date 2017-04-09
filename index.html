@@ -52,7 +52,7 @@
 					ul_list.insertBefore(new_item,ul_list.childNodes[0]);
 					input_value.value = "";
 					//重新为li中的元素绑定点击删除事件
-					for(var i in li_list){
+					/*for(var i in li_list){
 						(function(){
 								document.getElementsByClassName("content_list")[i].onclick = function(){
 								that = this;
@@ -60,7 +60,7 @@
 								that.parentNode.removeChild(that);
 							};
 						})(li_list[i]);				
-					};
+					};*/
 				}else if(isNaN(input_content)){
 					alert("不输入数字我就爆炸了！");
 					input_value.value = "";
@@ -76,7 +76,7 @@
 					ul_list.innerHTML += "<li class='content_list'>" + input_content + "</li>";
 					input_value.value = "";
 					//重新为li中的元素绑定点击删除事件
-					for(var i in li_list){
+					/*for(var i in li_list){
 						(function(){
 								document.getElementsByClassName("content_list")[i].onclick = function(){
 								that = this;
@@ -84,7 +84,7 @@
 								that.parentNode.removeChild(that);
 							};
 						})(li_list[i]);				
-					};
+					};*/
 				}else if(isNaN(input_content)){
 					alert("不输入数字我就爆炸了！");
 					input_value.value = "";
@@ -117,7 +117,8 @@
 			rightIn.onmouseout = function(){
 				removeClass(this,'button_clickchange');
 			}
-			//点击元素删除			
+			//点击元素删除
+			/*			
 			var that = null;
 			for(var i in li_list){
 				(function(){
@@ -127,7 +128,15 @@
 						that.parentNode.removeChild(that);
 					};
 				})(li_list[i]);				
-			};
+			};*/ 
+			//事件委托法
+			document.getElementsByClassName("content_ul")[0].onclick = function(ev){
+				var ev = ev || window.event;//
+				var target = ev.target || ev.srcElement;
+				if(target.nodeName.toLowerCase() == 'li'){
+					target.parentNode.removeChild(target);
+				}
+			}
 		}		
 		//js模拟jq的addClass效果
 		function addClass(element,csName){
